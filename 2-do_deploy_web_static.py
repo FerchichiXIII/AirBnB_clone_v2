@@ -2,6 +2,7 @@
 """
  Fabric script that distributes an archive to your web servers
 """
+from genericpath import exists
 from fabric.api import *
 import os
 
@@ -13,19 +14,22 @@ def do_deploy(archive_path):
     """
     Distributes an archive to the web servers
     """
-    if not os.path.exists(archive_path):
+    if exists(archive_path) is False:
         return False
     try:
         file_n = archive_path.split("/")[-1]
-        path = archive_path.split(file_n)[0]
-        put(archive_path, "/tmp/")
-        run("mkdir -p /data/web_static/releases/{}".format(path))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(file_n, path))
-        run("rm /tmp/{}".format(file_n))
-        run("mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/".format(path, path))
-        run("rm -rf /data/web_static/releases/{}/web_static".format(path))
-        run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{} /data/web_static/current".format(path))
-        return True
-    except:
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/{}".format(no_ext)
+        run("mkdir -p {}".format(path))
+        put(archive_path, path)
+        with cd(path):
+            run("tar -xzf {}".format(file_n))
+            run("rm {}".format(file_n))
+            run("mv {} {}".format(no_ext, "current"))
+            run("rm -rf releases/*")
+            run("ln -s {} releases/current")
+            run("service nginx restart")
+            return True
+    except Exception as e:
+        print(e)
         return False
