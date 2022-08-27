@@ -7,7 +7,7 @@ from fabric.api import *
 import os
 
 
-env.usr = ['35.173.249.36', '3.95.204.110']
+env.usr = ['35.173.249.36', '54.173.105.242']
 
 
 def do_deploy(archive_path):
