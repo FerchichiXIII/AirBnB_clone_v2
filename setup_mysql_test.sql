@@ -1,4 +1,4 @@
---prepares a MySQL server for the project
+-- Create database hbnb_test_db, and user hbnb_test
 CREATE DATABASE IF NOT EXISTS hbnb_test_db;
 DROP USER IF EXISTS 'hbnb_test'@'localhost';
 CREATE USER 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
