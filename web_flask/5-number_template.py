@@ -33,6 +33,12 @@ def python(text="is cool"):
     return 'Python {}'.format(text)
 
 
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    """ Hello HBNB """
+    return '{} is a number'.format(n)
+
+
 @app.route("/number_template/<n>", strict_slashes=False)
 def number_template(n):
     """ Hello HBNB """
