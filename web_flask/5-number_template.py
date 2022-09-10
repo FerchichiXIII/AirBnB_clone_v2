@@ -1,44 +1,39 @@
 #!/usr/bin/python3
 """flask app"""
 from flask import Flask
-from flask import abort
+from flask import render_template
 
 app = Flask(__name__)
 
 
-@app.route('/', _slashes=False)
+@app.route('/', strict_slashes=False)
 def hello_hbnb():
     """ Hello HBNB """
     return 'Hello HBNB!'
 
 
-@app.route("/hbnb", _slashes=False)
-def hello_hbnb():
+@app.route("/hbnb", strict_slashes=False)
+def hbnb():
     """ Hello HBNB """
     return 'HBNB'
 
 
-@app.route("/c/<text>", _slashes=False)
-def c():
+@app.route("/c/<text>", strict_slashes=False)
+def c(text):
     """ Hello HBNB """
     text = text.replace('_', ' ')
     return 'C {}'.format(text)
 
 
-@app.route("/python/(<text>)", _slashes=False)
-def python():
-	""" Hello HBNB """
-	text = text.replace('_', ' ')
-	return 'Python {}'.format(text)
+@app.route("/python", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def python(text="is cool"):
+    """ Hello HBNB """
+    text = text.replace('_', ' ')
+    return 'Python {}'.format(text)
 
 
-@app.route("/number/<int:n>", _slashes=False)
-def number():
-	""" Hello HBNB """
-	return '{} is a number'.format(n)
-
-
-@app.route("/number_template/<n>")
+@app.route("/number_template/<n>", strict_slashes=False)
 def number_template(n):
     """ Hello HBNB """
     return render_template('5-number_template.html', n=n)
