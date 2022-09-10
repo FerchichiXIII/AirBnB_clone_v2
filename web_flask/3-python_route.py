@@ -5,26 +5,26 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/', _slashes=False)
+@app.route('/', strict_slashes=False)
 def hello_hbnb():
     """ Hello HBNB """
     return 'Hello HBNB!'
 
 
-@app.route("/hbnb", _slashes=False)
-def hello_hbnb():
+@app.route("/hbnb", strict_slashes=False)
+def hbnb():
     """ Hello HBNB """
     return 'HBNB'
 
 
-@app.route("/c/<text>", _slashes=False)
+@app.route("/c/<text>", strict_slashes=False)
 def c():
     """ Hello HBNB """
     text = text.replace('_', ' ')
     return 'C {}'.format(text)
 
 
-@app.route("/python/(<text>)", _slashes=False)
+@app.route("/python/(<text>)", strict_slashes=False)
 def python():
 	""" Hello HBNB """
 	text = text.replace('_', ' ')
