@@ -3,9 +3,10 @@
 Write a script that starts a Flask web application
 """
 
+from models import storage
 from flask import Flask
 from flask import render_template
-from models import storage
+
 
 
 app = Flask(__name__)
@@ -19,7 +20,7 @@ def states_list():
 
 
 @app.teardown_appcontext
-def teardown(exception):
+def close_s(excetpion):
     storage.close()
 
 
